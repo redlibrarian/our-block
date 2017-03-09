@@ -11,16 +11,6 @@ class OURLimit
     read_sfx_file(options[:sfx_file]) if options[:sfx_file]
   end
 
-  def merged(catkey)
-    "#{catkey},#{@catkeys[catkey]},#{@sfx_data[@catkeys[catkey]]}"
-  end
-
-  def report
-    @catkeys.keys.each do |catkey|
-      puts merged catkey
-    end
-  end
-
   def retrieve(oid)
 
     auth_notes = []
@@ -45,3 +35,8 @@ class OURLimit
 
 end
 
+ourlimit = OURLimit.new({sfx_file: "sfx_test_data.xml"})
+ourlimit.sfx_data.each{|issn,oid|
+  auth_notes = ourlimit.retrieve(oid)
+  puts "#{oid}, #{OURLimit.limit?(auth_notes)}, #{OURLimit.valid?(auth_notes)}"
+}
