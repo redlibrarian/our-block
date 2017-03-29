@@ -24,7 +24,7 @@ class OURLimit
   end
 
   def self.valid?(notes)
-    notes.all?{|note| !(note =~ /<\/iframe>$/).nil? }
+    notes.all?{|note| !((note =~ /<\/iframe>$/).nil? and (note =~ /<\/iframe><\/p>$/).nil?) }
   end
 
   private
@@ -35,8 +35,10 @@ class OURLimit
 
 end
 
-ourlimit = OURLimit.new({sfx_file: "sfx_test_data.xml"})
-ourlimit.sfx_data.each{|issn,oid|
-  auth_notes = ourlimit.retrieve(oid)
-  puts "#{oid}, #{OURLimit.limit?(auth_notes)}, #{OURLimit.valid?(auth_notes)}"
-}
+# ourlimit = OURLimit.new({sfx_file: "sfx_test_data.xml"})
+# ourlimit.sfx_data.each{|issn,oid|
+#   auth_notes = ourlimit.retrieve(oid)
+#   puts auth_notes.size
+#   puts auth_notes
+#   puts "#{oid}, #{OURLimit.limit?(auth_notes)}, #{OURLimit.valid?(auth_notes)}"
+# }

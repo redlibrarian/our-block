@@ -7,7 +7,7 @@ RSpec.configure do |config|
   config.before(:each) do
     stub_request(:get, "https://resolver.library.ualberta.ca/resolver?ctx_enc=info:ofi/enc:UTF-8&ctx_ver=Z39.88-2004&rfr_id=info:sid/ualberta.ca:opac&rft.genre=journal&rft.object_id=954921332001&rft_val_fmt=info:ofi/fmt:kev:mtx:journal&sfx.response_type=simplexml&url_ctx_fmt=info:ofi/fmt:kev:mtx:ctx&url_ver=Z39.88-2004").
       with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
-      to_return(:status => 200, :body => '<sfx_menu><targets><target><authentication>&lt;iframe src="http://tal.scholarsportal.info/alberta/sfx/?tag=Default" width="100%" height="40" align="middle" frameborder="0" scrolling="no"&gt;&lt;p&gt;Your browser does not support iframes.&lt;/p&gt;&lt;/iframe&gt;</authentication></target></targets></sfx_menu>', :headers => {})
+      to_return(:status => 200, :body => '<sfx_menu><targets><target><authentication>&lt;p&gt;&lt;iframe src="http://tal.scholarsportal.info/alberta/sfx/?tag=Default" width="100%" height="40" align="middle" frameborder="0" scrolling="no"&gt;&lt;p&gt;Your browser does not support iframes.&lt;/p&gt;&lt;/iframe&gt;&lt;/p&gt;</authentication></target></targets></sfx_menu>', :headers => {})
 
     stub_request(:get, "https://resolver.library.ualberta.ca/resolver?ctx_enc=info:ofi/enc:UTF-8&ctx_ver=Z39.88-2004&rfr_id=info:sid/ualberta.ca:opac&rft.genre=journal&rft.object_id=954921332002&rft_val_fmt=info:ofi/fmt:kev:mtx:journal&sfx.response_type=simplexml&url_ctx_fmt=info:ofi/fmt:kev:mtx:ctx&url_ver=Z39.88-2004").
       with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
@@ -46,7 +46,7 @@ describe OURLimit do
   describe "make web services call" do
     context "given an SFX object ID" do
       it "should retrieve the authentication note field" do
-        expect(@our_limit.retrieve("954921332001").first).to eq '<iframe src="http://tal.scholarsportal.info/alberta/sfx/?tag=Default" width="100%" height="40" align="middle" frameborder="0" scrolling="no"><p>Your browser does not support iframes.</p></iframe>'
+        expect(@our_limit.retrieve("954921332001").first).to eq '<p><iframe src="http://tal.scholarsportal.info/alberta/sfx/?tag=Default" width="100%" height="40" align="middle" frameborder="0" scrolling="no"><p>Your browser does not support iframes.</p></iframe></p>'
       end
     end
 
